@@ -10,7 +10,7 @@ const registerUserController = async (req, res) => {
     const file = req.file;
 
     // Check if the email already exists
-    const existingUser = await userModel.find({ email: email });
+    const existingUser = await userModel.findOne({ email: req.body.email });
     if (existingUser) {
       return res.status(400).json({ status: 'failed', message: 'Email already exists' });
     }
