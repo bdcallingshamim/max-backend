@@ -1,8 +1,6 @@
 const userModel = require('../models/userModel');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-dotenv.config();
 
 const registerUserController = async (req, res) => {
   try {
@@ -10,7 +8,7 @@ const registerUserController = async (req, res) => {
     const file = req.file;
 
     // Check if the email already exists
-    const existingUser = await userModel.findOne({ email: req.body.email });
+    const existingUser = await userModel.findOne({ email: email });
     if (existingUser) {
       return res.status(400).json({ status: 'failed', message: 'Email already exists' });
     }
@@ -35,7 +33,6 @@ const registerUserController = async (req, res) => {
 
     res.status(201).json({ status: 'ok', message: 'User registered successfully!' });
   } catch (error) {
-    console.error('Error in registerUserController:', error);
     res.status(500).json({ status: 'failed', error: error.message });
   }
 };
