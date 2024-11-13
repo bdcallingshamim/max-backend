@@ -8,7 +8,7 @@ const registerUserController = async (req, res) => {
     const file = req.file;
 
     // Check if the email already exists
-    const existingUser = await userModel.find({ email:email });
+    const existingUser = await userModel.find({ email: email });
     if (existingUser) {
       return res.status(400).json({ status: 'failed', message: 'Email already exists' });
     }
@@ -42,7 +42,7 @@ const loginUserController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const existingUser = await userModel.findOne({ email:email });
+    const existingUser = await userModel.findOne({ email: email });
     if (!existingUser) {
       return res.status(404).json({ status: 'failed', message: 'Email not found' });
     }
@@ -63,8 +63,7 @@ const loginUserController = async (req, res) => {
       .cookie('token', token) //{ httpOnly: true, maxAge: 2 * 60 * 60 * 1000 }
       .json({ status: 'ok', message: 'Logged in successfully' });
   } catch (error) {
-    console.error('Error in loginUserController:', error);
-    res.status(500).json({ status: 'failed', error: 'An error occurred during login' });
+    res.status(500).json({ status: 'failed', error: error.message });
   }
 };
 
