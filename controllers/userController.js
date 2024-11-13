@@ -1,6 +1,8 @@
 const userModel = require('../models/userModel');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const registerUserController = async (req, res) => {
   try {
@@ -34,7 +36,7 @@ const registerUserController = async (req, res) => {
     res.status(201).json({ status: 'ok', message: 'User registered successfully!' });
   } catch (error) {
     console.error('Error in registerUserController:', error);
-    res.status(500).json({ status: 'failed', error: 'Error registering user' });
+    res.status(500).json({ status: 'failed', error: error.message });
   }
 };
 
