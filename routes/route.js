@@ -87,7 +87,7 @@ router.post(
   resizeImages,
   createPortfolio,
 );
-router.get('/get-all-portfolio', authenticateToken, getAllPortfolio);
+router.get('/get-all-portfolio', getAllPortfolio);
 router.delete('/delete-portfolio/:id', authenticateToken, deletePortfolio);
 router.patch('/update-user/:id', authenticateToken, updatePortfolio);
 //Portfolio section end
