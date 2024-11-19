@@ -23,23 +23,6 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(mongoSanitize());
 
-// Global rate limit (general API endpoints)
-const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, // Limit each IP to 200 requests per window
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-
-// Stricter rate limit for login route
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 5 minutes
-  max: 50, // Limit each IP to 10 requests per window for login
-  message: 'Too many login attempts, please try again later.',
-});
-
-app.use(generalLimiter);
-app.use(loginLimiter);
 app.use('/api/v1', router);
 app.use('/images', express.static(path.join(__dirname, 'public/uploads')));
 
